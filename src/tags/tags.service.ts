@@ -8,6 +8,7 @@ import { User } from '../user/schemas/user.schema';
 @Injectable()
 export class TagsService {
   constructor(@InjectModel(Tag.name) private tagModule: Model<TagDocument>){}
+
   async create(createTagDto: CreateTagDto): Promise<Tag> {
     return await this.tagModule.create(createTagDto);
   }
@@ -23,15 +24,18 @@ export class TagsService {
     )
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOne(id: string): Promise<Tag> {
     return await this.tagModule.findById(id);
   }
 
-  async update(id: number, updateTagDto: UpdateTagDto) {
-    
+  async update(id: string, updateTagDto: UpdateTagDto): Promise<Tag> {
+    const updatedTag = await this.tagModule.findByIdAndUpdate({_id: id},updateTagDto)
+    return updatedTag;
+
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tag`;
+  async remove(id: string): Promise<Boolean> {
+    const deletedTag = await this.tagModule.findByIdAndDelete(id);
+    return true;
   }
 }

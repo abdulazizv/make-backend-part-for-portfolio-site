@@ -8,4 +8,4 @@ export class Tag {
     name:string;
 }
 
-export const tagSchema = SchemaFactory.createForClass(Tag);
+export const TagSchema = SchemaFactory.createForClass(Tag);
