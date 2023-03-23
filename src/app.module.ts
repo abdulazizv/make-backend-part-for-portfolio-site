@@ -4,13 +4,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { TagsModule } from './tags/tags.module';
 import { PostsModule } from './posts/posts.module';
+import { SocialModule } from './social/social.module';
+import { WorkModule } from './work/work.module';
 
 @Module({
   imports: [ConfigModule.forRoot({envFilePath:'.env', isGlobal:true}),
   MongooseModule.forRoot(process.env.MONGO_URI),
   UserModule,
   TagsModule,
-  PostsModule
+  PostsModule,
+  SocialModule,
+  WorkModule
   ],
   controllers: [],
   providers: [],
