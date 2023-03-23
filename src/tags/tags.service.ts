@@ -13,15 +13,18 @@ export class TagsService {
     return await this.tagModule.create(createTagDto);
   }
 
-  async findAll(): Promise<Tag[]>{
-    const allTags = await this.tagModule.find().exec()
+  async findAll(){
+    const allTags = await this.tagModule.find().exec();
     if(allTags.length >= 1) {
-      return allTags
+      return allTags;
     }
-    throw new HttpException(
-      'Information not found!',
-      HttpStatus.NO_CONTENT
-    )
+    else{
+      const response = {
+        message: 'Information not found',
+        status: HttpStatus.NO_CONTENT
+      }
+      return response;
+    }
   }
 
   async findOne(id: string): Promise<Tag> {
