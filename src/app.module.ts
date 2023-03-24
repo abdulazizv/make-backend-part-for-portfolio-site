@@ -6,6 +6,7 @@ import { TagsModule } from './tags/tags.module';
 import { PostsModule } from './posts/posts.module';
 import { SocialModule } from './social/social.module';
 import { WorkModule } from './work/work.module';
+import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [ConfigModule.forRoot({envFilePath:'.env', isGlobal:true}),
@@ -14,7 +15,8 @@ import { WorkModule } from './work/work.module';
   TagsModule,
   PostsModule,
   SocialModule,
-  WorkModule
+  WorkModule,
+  ProjectModule
   ],
   controllers: [],
   providers: [],
