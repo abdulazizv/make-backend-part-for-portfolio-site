@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreatePostTagDto } from './dto/create-post_tag.dto';
 import { UpdatePostTagDto } from './dto/update-post_tag.dto';
+import { PostTag } from './schemas/post_tag.schema';
 
 @Injectable()
 export class PostTagService {
-  create(createPostTagDto: CreatePostTagDto) {
-    return 'This action adds a new postTag';
+  constructor(@InjectModel(PostTag.name) private postTagModule: Model<PostTag>){ }
+
+  async create(createPostTagDto: CreatePostTagDto): Promise<PostTag> {
+    const newPostTag = await this.postTagModule.create(createPostTagDto);
+    return newPostTag;
   }
 
-  findAll() {
-    return `This action returns all postTag`;
+  async findAll(): Promise<PostTag[]> {
+    const allPostTag = await this.postTagModule.find().populate('tag_id').populate('post_id');
+    return allPostTag;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} postTag`;
+  async findOne(id: string):Promise<PostTag> {
+    const onePostTag = await this.postTagModule.findById(id).populate('tag_id').populate('post_id');
+    return onePostTag;
   }
 
-  update(id: number, updatePostTagDto: UpdatePostTagDto) {
-    return `This action updates a #${id} postTag`;
+  async update(id: string, updatePostTagDto: UpdatePostTagDto): Promise<PostTag> {
+    const updatedPostTag = await this.postTagModule.findByIdAndUpdate(id,updatePostTagDto);
+    return updatedPostTag;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} postTag`;
+  async remove(id: string): Promise<Boolean> {
+    await this.postTagModule.findByIdAndDelete(id);
+    return true;
   }
 }
