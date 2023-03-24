@@ -14,19 +14,26 @@ export class ProjectTagsService {
     return newProjectTag;
   }
 
-  async findAll() {
-    return `This action returns all projectTags`;
+  async findAll():Promise<ProjectTag[]> {
+    const allProjectTag = await this.projectModule.find().populate('project_id').populate('tag_id');
+    if(allProjectTag.length >= 1)
+    return allProjectTag;
+    else
+      return null;
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} projectTag`;
+  async findOne(id: string): Promise<ProjectTag> {
+    const oneProjectTag = await this.projectModule.findById(id).populate('project_id').populate('tag_id');
+    return oneProjectTag;
   }
 
-  async update(id: number, updateProjectTagDto: UpdateProjectTagDto) {
-    return `This action updates a #${id} projectTag`;
+  async update(id: string, updateProjectTagDto: UpdateProjectTagDto): Promise<ProjectTag> {
+    const updatedOne = await this.projectModule.findByIdAndUpdate(id,updateProjectTagDto);
+    return updatedOne;
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} projectTag`;
+  async remove(id: string): Promise<Boolean> {
+    await this.projectModule.findByIdAndDelete(id);
+    return true;
   }
 }
