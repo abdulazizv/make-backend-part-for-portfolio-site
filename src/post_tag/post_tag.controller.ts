@@ -19,16 +19,16 @@ export class PostTagController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.postTagService.findOne(+id);
+    return this.postTagService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePostTagDto: UpdatePostTagDto) {
-    return this.postTagService.update(+id, updatePostTagDto);
+    return this.postTagService.update(id, updatePostTagDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.postTagService.remove(+id);
+    return this.postTagService.remove(id);
   }
 }
