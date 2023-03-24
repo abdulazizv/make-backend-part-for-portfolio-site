@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateProjectTagDto } from './dto/create-project_tag.dto';
 import { UpdateProjectTagDto } from './dto/update-project_tag.dto';
+import { ProjectTag } from './schemas/project_tag.schema';
 
 @Injectable()
 export class ProjectTagsService {
-  create(createProjectTagDto: CreateProjectTagDto) {
-    return 'This action adds a new projectTag';
+  constructor(@InjectModel(ProjectTag.name) private projectModule: Model<ProjectTag>) {}
+
+  async create(createProjectTagDto: CreateProjectTagDto):Promise<ProjectTag> {
+    const newProjectTag = await this.projectModule.create(createProjectTagDto);
+    return newProjectTag;
   }
 
-  findAll() {
+  async findAll() {
     return `This action returns all projectTags`;
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return `This action returns a #${id} projectTag`;
   }
 
-  update(id: number, updateProjectTagDto: UpdateProjectTagDto) {
+  async update(id: number, updateProjectTagDto: UpdateProjectTagDto) {
     return `This action updates a #${id} projectTag`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} projectTag`;
   }
 }
