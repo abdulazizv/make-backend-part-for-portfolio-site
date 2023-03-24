@@ -19,16 +19,16 @@ export class ProjectTagsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.projectTagsService.findOne(+id);
+    return this.projectTagsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProjectTagDto: UpdateProjectTagDto) {
-    return this.projectTagsService.update(+id, updateProjectTagDto);
+    return this.projectTagsService.update(id, updateProjectTagDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.projectTagsService.remove(+id);
+    return this.projectTagsService.remove(id);
   }
 }
